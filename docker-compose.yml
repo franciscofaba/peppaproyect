@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   mysqldb:
     image: mysql:8.0
@@ -21,9 +23,9 @@ services:
       - internalnet
 
   nodeapp:
-    container_name: nodeappcontainer
     build: ./api_node
-    image: nodeapp:v1
+    container_name: nodeappcontainer
+    image: ffaba/peppapigproyect:nodeapp
     environment:
       DB_HOST: mysqldb
       DB_USER: 'root'
@@ -41,23 +43,24 @@ services:
     networks:
       - internalnet
 
-
   reactclient:
     build: ./client
     container_name: reactappcontainer
+    image: ffaba/peppapigproyect:reactclient
     ports:
       - '3000:3000'
     stdin_open: true
     tty: true
-    
+
   reactclient2:
     build: ./panel
     container_name: reactappcontainer2
+    image: ffaba/peppapigproyect:reactclient2
     ports:
       - '4200:4200'
     stdin_open: true
     tty: true
-    
+
 networks:
   internalnet:
     driver: bridge
