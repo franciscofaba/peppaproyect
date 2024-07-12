@@ -23,7 +23,9 @@ services:
       - internalnet
 
   nodeapp:
-    build: ./api_node
+    build:
+      context: ./api_node
+      dockerfile: Dockerfile
     container_name: nodeappcontainer
     image: ffaba/peppapigproyect:nodeapp
     environment:
@@ -44,7 +46,9 @@ services:
       - internalnet
 
   reactclient:
-    build: ./client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
     container_name: reactappcontainer
     image: ffaba/peppapigproyect:reactclient
     ports:
@@ -53,7 +57,9 @@ services:
     tty: true
 
   reactclient2:
-    build: ./panel
+    build:
+      context: ./panel
+      dockerfile: Dockerfile
     container_name: reactappcontainer2
     image: ffaba/peppapigproyect:reactclient2
     ports:
