@@ -6,6 +6,10 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -47,10 +51,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true
+          environment: 'azurecloud'
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
@@ -60,6 +63,3 @@ jobs:
             ffaba/peppapigproyect:nodeapp
             ffaba/peppapigproyect:reactclient
             ffaba/peppapigproyect:reactclient2
-
-
-
